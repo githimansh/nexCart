@@ -2,15 +2,18 @@
 
 <div align="center">
 
-### AI-Powered Full-Stack Multi-Vendor eCommerce Platform
+# AI-Powered Full-Stack Multi-Vendor eCommerce Platform
 
-Built with **React**, **Spring Boot**, **MySQL**, **JWT**, **Google OAuth2**, **Razorpay**, **Stripe**, **Groq AI**, and **Gemini AI**.
+A modern, scalable, and secure eCommerce platform that enables customers to shop seamlessly, sellers to manage their businesses efficiently, and administrators to monitor the entire marketplace.
+
+Built with **Spring Boot**, **React**, **TypeScript**, **MySQL**, **Spring Security**, **JWT**, **Google OAuth2**, **Razorpay**, **Stripe**, **Groq AI**, and **Google Gemini AI**.
 
 ![Java](https://img.shields.io/badge/Java-21-orange)
-![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.x-green)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.x-success)
 ![React](https://img.shields.io/badge/React-19-blue)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue)
 ![MySQL](https://img.shields.io/badge/MySQL-8.0-blue)
+![JWT](https://img.shields.io/badge/JWT-Authentication-red)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 </div>
@@ -19,9 +22,11 @@ Built with **React**, **Spring Boot**, **MySQL**, **JWT**, **Google OAuth2**, **
 
 # 📖 Overview
 
-**nexCart** is a modern AI-powered multi-vendor eCommerce platform designed to provide a seamless shopping experience for customers while enabling sellers to efficiently manage products, orders, and inventory.
+**nexCart** is a feature-rich AI-powered Multi-Vendor eCommerce platform developed using **Spring Boot** and **React**.
 
-The platform supports secure authentication, AI-powered assistance, online payments, product management, and a responsive user interface.
+The platform provides dedicated portals for **Customers**, **Sellers**, and **Administrators**, enabling secure authentication, online payments, AI-powered shopping assistance, inventory management, order tracking, and intelligent product discovery.
+
+The application is designed using RESTful architecture with a scalable backend and a responsive frontend to deliver a modern shopping experience.
 
 ---
 
@@ -29,11 +34,12 @@ The platform supports secure authentication, AI-powered assistance, online payme
 
 ## 👤 Customer
 
-- User Registration & Login
+- Secure Registration & Login
 - Google OAuth2 Authentication
 - JWT Authentication
 - Browse Products
 - Advanced Product Search
+- AI Voice Search
 - Product Categories
 - Wishlist
 - Shopping Cart
@@ -43,6 +49,7 @@ The platform supports secure authentication, AI-powered assistance, online payme
 - Order Tracking
 - Profile Management
 - AI Shopping Assistant
+- Product Reviews & Ratings
 
 ---
 
@@ -56,51 +63,76 @@ The platform supports secure authentication, AI-powered assistance, online payme
 - Sales Analytics
 - Revenue Reports
 - Profile Management
-- Account Verification
+- Seller Verification
+- Product Image Upload
+- Stock Management
 
 ---
 
-## 🛠 Admin
+## 🛠️ Admin
 
-- Dashboard
+- Admin Dashboard
 - User Management
 - Seller Management
 - Product Management
-- Order Management
-- Coupon Management
 - Category Management
-- Reports & Analytics
+- Coupon Management
+- Order Management
+- Revenue Analytics
+- Reports
+- Platform Monitoring
 
 ---
 
 # 🤖 AI Features
 
+- AI Shopping Assistant
+- AI Voice Search
 - Groq AI Chatbot
-- Gemini AI Integration
+- Google Gemini AI Integration
 - AI Product Recommendations
-- Intelligent Customer Assistance
+- Intelligent Customer Support
+- AI-Based Product Suggestions
 
 ---
 
-# 💳 Payment Integration
+# 💳 Payment Gateway
 
-- Razorpay
-- Stripe
+- Razorpay Integration
+- Stripe Integration
+- Secure Online Payments
+- Payment Status Tracking
 
 ---
 
 # 🔐 Authentication & Security
 
+- Spring Security
 - JWT Authentication
 - Google OAuth2 Login
 - Role-Based Authorization
 - Secure REST APIs
 - Password Encryption
 - Email OTP Verification
+- Protected API Endpoints
 
 ---
 
-# 🛠 Tech Stack
+# 🛠 Technology Stack
+
+## Backend
+
+- Java 21
+- Spring Boot
+- Spring Security
+- Spring Data JPA
+- Hibernate
+- REST APIs
+- Maven
+- JWT Authentication
+- Google OAuth2
+
+---
 
 ## Frontend
 
@@ -112,24 +144,20 @@ The platform supports secure authentication, AI-powered assistance, online payme
 - Material UI
 - Axios
 
-## Backend
-
-- Java 21
-- Spring Boot
-- Spring Security
-- Spring Data JPA
-- Hibernate
-- REST APIs
-- Maven
+---
 
 ## Database
 
 - MySQL
 
-## AI
+---
 
-- Groq API
-- Google Gemini API
+## AI Services
+
+- Groq AI
+- Google Gemini AI
+
+---
 
 ## Payment
 
@@ -138,14 +166,39 @@ The platform supports secure authentication, AI-powered assistance, online payme
 
 ---
 
+## Tools
+
+- Git
+- GitHub
+- IntelliJ IDEA
+- VS Code
+- Postman
+- Maven
+
+---
+
 # 📂 Project Structure
 
-```
+```text
 nexCart
 │
-├── backend
+├── assets
 │
-├── frontend
+├── source code
+│   │
+│   ├── backend-spring boot
+│   │   ├── src
+│   │   ├── pom.xml
+│   │   ├── Dockerfile
+│   │   └── ...
+│   │
+│   ├── frontend-vite
+│   │   ├── src
+│   │   ├── public
+│   │   ├── package.json
+│   │   └── ...
+│   │
+│   └── README.md
 │
 └── README.md
 ```
@@ -154,15 +207,25 @@ nexCart
 
 # 🚀 Getting Started
 
-## Backend
+## Clone Repository
 
 ```bash
-cd backend
+git clone https://github.com/githimansh/nexCart.git
+```
+
+---
+
+## Backend Setup
+
+```bash
+cd "source code/backend-spring boot"
+
 mvn clean install
+
 mvn spring-boot:run
 ```
 
-Backend runs on
+Backend Server
 
 ```
 http://localhost:5454
@@ -170,15 +233,17 @@ http://localhost:5454
 
 ---
 
-## Frontend
+## Frontend Setup
 
 ```bash
-cd frontend
+cd "source code/frontend-vite"
+
 npm install
+
 npm run dev
 ```
 
-Frontend runs on
+Frontend Server
 
 ```
 http://localhost:5173
@@ -188,15 +253,17 @@ http://localhost:5173
 
 # 🔑 Environment Variables
 
-Create a `.env` file and configure:
+Create a `.env` file inside the backend project.
 
-```
+```env
 DB_URL=
 DB_USERNAME=
 DB_PASSWORD=
 
 GOOGLE_CLIENT_ID=
 GOOGLE_CLIENT_SECRET=
+
+JWT_SECRET=
 
 RAZORPAY_KEY=
 RAZORPAY_SECRET=
@@ -215,48 +282,72 @@ GEMINI_API_KEY=
 
 # 📸 Screenshots
 
-> Screenshots will be added soon.
+Project screenshots will be added soon.
+
+- Home Page
+- Product Listing
+- Product Details
+- Shopping Cart
+- Checkout
+- Seller Dashboard
+- Admin Dashboard
+- AI Shopping Assistant
 
 ---
 
 # 🌍 Future Enhancements
 
 - AI Image Search
-- Voice Shopping
-- Product Recommendation Engine
+- AI-Based Product Description Generator
+- Live Order Tracking
 - Real-Time Notifications
-- Order Chat System
 - Multi-Language Support
 - Mobile Application
+- Advanced Seller Analytics
+- AI Inventory Forecasting
 
 ---
 
 # 🤝 Contributing
 
-Contributions are welcome!
+Contributions are welcome.
 
-Fork the repository and create a Pull Request.
+1. Fork the repository
+2. Create a new feature branch
+3. Commit your changes
+4. Push the branch
+5. Open a Pull Request
+
+---
+
+# 📄 License
+
+This project is licensed under the **MIT License**.
 
 ---
 
 # 👨‍💻 Author
 
-**Himanshu Kumar**
+## Himanshu Kumar
 
-GitHub
+**Java Full Stack Developer**
+
+**GitHub**
 
 https://github.com/githimansh
 
-LinkedIn
+**LinkedIn**
 
 https://linkedin.com/in/himanshu-kumar-b86231256
 
-LeetCode
+**LeetCode**
 
 https://leetcode.com/u/Himu2486
 
 ---
 
-# ⭐ Support
+# ⭐ Show Your Support
 
-If you found this project useful, don't forget to **Star ⭐ the repository**.
+If you found this project useful, consider giving it a ⭐ on GitHub.
+
+It motivates further development and helps others discover the project.
