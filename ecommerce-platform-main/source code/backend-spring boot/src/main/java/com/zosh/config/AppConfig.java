@@ -50,6 +50,7 @@ public class AppConfig {
                 CorsConfiguration cfg = new CorsConfiguration();
                 cfg.setAllowedOrigins(Arrays.asList(
                         "http://localhost:5173",
+                        "https://nex-cart-pearl.vercel.app",
                         "http://localhost:3000",
                         "https://ecommerce-platform-frontend-jkcz.onrender.com"));
                 cfg.setAllowedMethods(Collections.singletonList("*"));
