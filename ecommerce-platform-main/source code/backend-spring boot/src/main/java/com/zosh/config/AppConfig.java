@@ -1,7 +1,6 @@
 package com.zosh.config;
 
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.List;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,58 +14,85 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
-
-import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
 public class AppConfig {
 
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(Authorize -> Authorize
-                		.requestMatchers("/api/admin/**").hasAnyRole("SHOP_OWNER","ADMIN")
-                                .requestMatchers("/oauth2/**", "/login/**").permitAll()
-                                .requestMatchers("/api/**").authenticated()
-                                .requestMatchers("/api/products/*/reviews").permitAll()
-                                .anyRequest().permitAll()
+        http
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
-                )
-                .addFilterBefore(new JwtTokenValidator(), BasicAuthenticationFilter.class)
                 .csrf(csrf -> csrf.disable())
-                .cors(cors -> cors.configurationSource(corsConfigurationSource()));
 
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
 
-		return http.build();
+                .authorizeHttpRequests(auth -> auth
 
-	}
-    // CORS Configuration
-    private CorsConfigurationSource corsConfigurationSource() {
-        return new CorsConfigurationSource() {
-            @Override
-            public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
-                CorsConfiguration cfg = new CorsConfiguration();
-                cfg.setAllowedOrigins(Arrays.asList(
-                        "http://localhost:5173",
-                        "https://nex-cart-pearl.vercel.app",
-                        "http://localhost:3000",
-                        "https://ecommerce-platform-frontend-jkcz.onrender.com"));
-                cfg.setAllowedMethods(Collections.singletonList("*"));
-                cfg.setAllowCredentials(true);
-                cfg.setAllowedHeaders(Collections.singletonList("*"));
-                cfg.setExposedHeaders(Arrays.asList("Authorization"));
-                cfg.setMaxAge(3600L);
-                return cfg;
-            }
-        };
+                        .requestMatchers(
+                                "/auth/**",
+                                "/oauth2/**",
+                                "/login/**",
+                                "/error"
+                        ).permitAll()
+
+                        .requestMatchers("/api/products/*/reviews").permitAll()
+
+                        .requestMatchers("/api/admin/**")
+                        .hasAnyRole("SHOP_OWNER", "ADMIN")
+
+                        .requestMatchers("/api/**")
+                        .authenticated()
+
+                        .anyRequest().permitAll()
+                )
+
+                .addFilterBefore(new JwtTokenValidator(),
+                        BasicAuthenticationFilter.class);
+
+        return http.build();
     }
 
     @Bean
-    PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+    public CorsConfigurationSource corsConfigurationSource() {
+
+        CorsConfiguration configuration = new CorsConfiguration();
+
+        configuration.setAllowedOrigins(List.of(
+                "http://localhost:*",
+                "https://nex-cart-pearl.vercel.app"
+        ));
+
+        configuration.setAllowedMethods(List.of(
+                "GET",
+                "POST",
+                "PUT",
+                "DELETE",
+                "PATCH",
+                "OPTIONS"
+        ));
+
+        configuration.setAllowedHeaders(List.of("*"));
+        configuration.setExposedHeaders(List.of("Authorization"));
+        configuration.setAllowCredentials(true);
+        configuration.setMaxAge(3600L);
+
+        UrlBasedCorsConfigurationSource source =
+                new UrlBasedCorsConfigurationSource();
+
+        source.registerCorsConfiguration("/**", configuration);
+
+        return source;
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     @Bean
     public RestTemplate restTemplate() {
